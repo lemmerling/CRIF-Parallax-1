@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRIF Banner animated</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    var clickTag = window.location.search.split('clicktag=')[1] || "";
+  </script>
+</head>
+
+<body>
+  <div class="banner" id="banner" onclick="window.open(clickTag, '_blank');">
+    <img src="media/background.webp" class="background" />
+    <img src="media/foreground.webp" class="foreground" />
+    <img src="media/wernet.webp" class="wernet" />
+    <img src="media/textbox2.webp" class="textbox2" />
+    <img src="media/textbox1.webp" class="textbox1" />
+    <img src="media/tickets.webp" class="tickets" />
+    <img src="media/textbox3.webp" class="textbox3" />
+    <img src="media/textbox4.webp" class="textbox4" />
+    <img src="media/textbox5.webp" class="textbox5" />
+    <img src="media/wernet-nametag.webp" class="wernet-nametag" />
+  </div>
+
+  <script>
+    const banner = document.getElementById('banner');
+
+    function restartAnimation() {
+      const imgs = banner.querySelectorAll('img');
+      imgs.forEach(img => {
+        img.style.animation = 'none';
+        void img.offsetWidth;
+      });
+
+      imgs.forEach(img => {
+        if (img.classList.contains('textbox1') || img.classList.contains('textbox2')) {
+          img.style.animation = 'slideInOut 5s ease-out forwards';
+          img.style.animationDelay = img.classList.contains('textbox1') ? '0.2s' : '0.5s';
+        }
+        if (img.classList.contains('wernet')) {
+          img.style.animation = 'wernetSlideUp 1s ease-out forwards';
+          img.style.animationDelay = '4s';
+        }
+        if (img.classList.contains('wernet-nametag')) {
+          img.style.animation = 'wernet-nametagSlideUp 1s ease-out forwards';
+          img.style.animationDelay = '4.2s';
+        }
+        if (img.classList.contains('textbox3')) {
+          img.style.animation = 'textbox3SlideUp 1s ease-out forwards';
+          img.style.animationDelay = '4.5s';
+        }
+        if (img.classList.contains('tickets')) {
+          img.style.animation = 'ticketsSlideUp 1s ease-out forwards, ticketsPulse 1.5s ease-in-out 1.1s infinite alternate';
+          img.style.animationDelay = '5.5s';
+        }
+        if (img.classList.contains('textbox4')) {
+          img.style.animation = 'slideInStay 4.5s ease-out forwards';
+          img.style.animationDelay = '5.2s';
+        }
+        if (img.classList.contains('textbox5')) {
+          img.style.animation = 'slideInStay 4.5s ease-out forwards';
+          img.style.animationDelay = '5.5s';
+        }
+      });
+
+      const bg = banner.querySelector('.background');
+      let currentAnim = bg.style.animation || '';
+      bg.style.animation = currentAnim
+        ? currentAnim + ', backgroundSlideDiagonal 20s linear forwards'
+        : 'backgroundSlideDiagonal 20s linear forwards';
+    }
+
+    restartAnimation();
+    setInterval(restartAnimation, 20000);
+  </script>
+</body>
+</html>
